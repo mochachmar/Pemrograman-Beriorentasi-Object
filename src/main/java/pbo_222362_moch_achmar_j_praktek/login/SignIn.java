@@ -188,7 +188,6 @@ public class SignIn extends JPanel {
         String usernameOrEmail = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
 
-        // Validate the input
         if (usernameOrEmail.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Silakan isi username/email !");
         } else if (password.isEmpty()) {
@@ -196,7 +195,7 @@ public class SignIn extends JPanel {
         } else {
             boolean rememberMe = chRememberMe.isSelected();
 
-            if (login(usernameOrEmail, password)) {
+            if (checkUser(usernameOrEmail, password)) {
                 if (rememberMe) {
                     saveLoginInfo(usernameOrEmail, password);
                 }
@@ -206,6 +205,45 @@ public class SignIn extends JPanel {
                         "salah atau akun belum terdaftar !");
             }
         }
+    }
+
+    private boolean checkUser(String usernameOrEmail, String password) {
+        Connection connection = DatabaseConnection.getConnection();
+        if (connection != null) {
+            try {
+                String userCheckQuery = "SELECT * FROM users WHERE username = ? OR email = ?";
+                PreparedStatement userCheckStatement = connection.prepareStatement(userCheckQuery);
+                userCheckStatement.setString(1, usernameOrEmail);
+                userCheckStatement.setString(2, usernameOrEmail);
+
+                ResultSet userCheckResultSet = userCheckStatement.executeQuery();
+
+                if (userCheckResultSet.next()) {
+                    // User exists, now check the password
+                    String storedPassword = userCheckResultSet.getString("password");
+                    if (password.equals(storedPassword)) {
+                        // Password is correct
+                        userCheckResultSet.close();
+                        userCheckStatement.close();
+                        connection.close();
+                        return true;
+                    } else {
+                        // Password is incorrect
+                        JOptionPane.showMessageDialog(this, "Password Salah!");
+                    }
+                } else {
+                    // User does not exist
+                    JOptionPane.showMessageDialog(this, "Username Salah!");
+                }
+
+                userCheckResultSet.close();
+                userCheckStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
 
