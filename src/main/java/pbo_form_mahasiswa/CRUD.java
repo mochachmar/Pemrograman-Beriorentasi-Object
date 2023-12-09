@@ -52,6 +52,7 @@ public class CRUD extends javax.swing.JFrame {
         perempuan = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         txtDataMahasiswa.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         txtDataMahasiswa.setText("DATA MAHASISWA");
