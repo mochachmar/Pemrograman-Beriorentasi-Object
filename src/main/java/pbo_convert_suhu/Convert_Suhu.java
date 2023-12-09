@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 public class Convert_Suhu extends javax.swing.JFrame {
     public Convert_Suhu() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     /**

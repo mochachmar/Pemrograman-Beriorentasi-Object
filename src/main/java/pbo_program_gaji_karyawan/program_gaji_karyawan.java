@@ -13,6 +13,7 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
     public program_gaji_karyawan() {
         initComponents();
         lockFields();
+        setLocationRelativeTo(this);
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
