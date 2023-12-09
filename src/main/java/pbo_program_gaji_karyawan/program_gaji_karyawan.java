@@ -359,13 +359,22 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
 
     private void txtfieldnikActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldnikActionPerformed
         // TODO add your handling code here:
-
-
     }//GEN-LAST:event_txtfieldnikActionPerformed
 
-    private void txtfieldnamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfieldnamaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfieldnamaActionPerformed
+    private void txtfieldnamaActionPerformed(java.awt.event.ActionEvent evt) {
+        String nama = txtfieldnama.getText();
+
+        if (!nama.matches(".*\\d.*")) { // Check if the name contains a digit
+            if (nama.length() <= 20) { // Check if the name length is less than or equal to 20
+                // Your existing code for txtfieldnamaActionPerformed goes here
+            } else {
+                JOptionPane.showMessageDialog(null, "Nama tidak boleh lebih dari 20 karakter", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Nama tidak boleh mengandung angka", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 
     private void combobox_golonganActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_golonganActionPerformed
         // TODO add your handling code here:
@@ -446,23 +455,55 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
     }//GEN-LAST:event_hitungActionPerformed
 
     private void tampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tampilActionPerformed
-        // TODO add your handling code here:
         if (isFormComplete()) {
-            String result = "NIK: " + txtfieldnik.getText() +
-                    "\nNama: " + txtfieldnama.getText() +
-                    "\nGolongan: " + combobox_golongan.getSelectedItem() +
-                    "\nGaji Pokok: Rp" + gaji_pokok.getText() +
-                    "\nTunjangan: Rp" + txtfield_tunjangan.getText() +
-                    "\nJumlah Anak: " + txtfield_jumlah_anak.getText() +
-                    "\nTunjangan Anak: Rp" + txtfield_tunjangan_anak.getText() +
-                    "\nPPN: Rp" + pajak_10_persen.getText() +
-                    "\nGaji Bersih: Rp" + txtfield_gaji_bersih.getText();
+            if (isValidNIK() && isValidName()) {
+                String result = "NIK: " + txtfieldnik.getText() +
+                        "\nNama: " + txtfieldnama.getText() +
+                        "\nGolongan: " + combobox_golongan.getSelectedItem() +
+                        "\nGaji Pokok: Rp" + gaji_pokok.getText() +
+                        "\nTunjangan: Rp" + txtfield_tunjangan.getText() +
+                        "\nJumlah Anak: " + txtfield_jumlah_anak.getText() +
+                        "\nTunjangan Anak: Rp" + txtfield_tunjangan_anak.getText() +
+                        "\nPPN: Rp" + pajak_10_persen.getText() +
+                        "\nGaji Bersih: Rp" + txtfield_gaji_bersih.getText();
 
-            txt_area.setText(result);
+                txt_area.setText(result);
+            } else {
+                if (!isValidNIK()) {
+                    JOptionPane.showMessageDialog(null, "NIK harus 6 digit", "NIK tidak valid !", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nama tidak valid", "Nama tidak boleh angka dan maksimal 20 karakter", JOptionPane.ERROR_MESSAGE);
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Isian Belum Lengkap");
         }
-    }//GEN-LAST:event_tampilActionPerformed
+    }
+
+    private boolean isValidName() {
+        String name = txtfieldnama.getText();
+        // Check if the name does not contain numbers and does not exceed 20 characters
+        return !name.matches(".*\\d.*") && name.length() <= 20;
+    }
+
+    private boolean isFormComplete() {
+        return !txtfieldnik.getText().isEmpty() &&
+                !txtfieldnama.getText().isEmpty() &&
+                !txtfield_jumlah_anak.getText().isEmpty() &&
+                combobox_golongan.getSelectedIndex() > 0 &&
+                !gaji_pokok.getText().isEmpty() &&
+                !txtfield_tunjangan_anak.getText().isEmpty() &&
+                !txtfield_tunjangan.getText().isEmpty() &&
+                !pajak_10_persen.getText().isEmpty() &&
+                !txtfield_total_gaji.getText().isEmpty() &&
+                !txtfield_gaji_bersih.getText().isEmpty();
+    }
+
+
+    private boolean isValidNIK() {
+        return txtfieldnik.getText().length() == 16;
+    }
+
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         // TODO add your handling code here:
@@ -486,20 +527,6 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_kembaliActionPerformed
 
-    private boolean isFormComplete() {
-        // Memeriksa apakah semua isian telah terisi
-        return !txtfieldnik.getText().isEmpty() &&
-                !txtfieldnama.getText().isEmpty() &&
-                !txtfield_jumlah_anak.getText().isEmpty() &&
-                combobox_golongan.getSelectedIndex() > 0 &&
-                !gaji_pokok.getText().isEmpty() &&
-                !txtfield_tunjangan_anak.getText().isEmpty() &&
-                !txtfield_tunjangan.getText().isEmpty() &&
-                !pajak_10_persen.getText().isEmpty() &&
-                !txtfield_total_gaji.getText().isEmpty() &&
-                !txtfield_gaji_bersih.getText().isEmpty();
-    }
-
     private void hitungTotalGaji() {
         totalGaji = gapok + tunjangan + tunjanganAnak;
         pajak = 0.1 * totalGaji;
@@ -517,15 +544,21 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
     }
 
     private void validateNIK() {
-        // Check if the NIK is a valid integer
         try {
-            Integer.parseInt(txtfieldnik.getText());
+            long nik = Long.parseLong(txtfieldnik.getText());
+
+            if (String.valueOf(nik).length() != 16) {
+                JOptionPane.showMessageDialog(this, "NIK harus memiliki 16 digit", "NIK tidak valid !",
+                        JOptionPane.ERROR_MESSAGE);
+                txtfieldnik.setText("");
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "NIK harus bilangan bulat", "NIK tidak valid !",
                     JOptionPane.ERROR_MESSAGE);
-            txtfieldnik.setText(""); // Clear the field
+            txtfieldnik.setText("");
         }
     }
+
 
     /**
      * @param args the command line arguments

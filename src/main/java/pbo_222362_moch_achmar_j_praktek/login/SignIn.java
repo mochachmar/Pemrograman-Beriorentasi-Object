@@ -141,10 +141,6 @@ public class SignIn extends JPanel {
                         JOptionPane.showMessageDialog(SignIn.this, "Berhasil masuk ! Anda akan segera dialihkan !");
                         Pilih_Project_Java_GUI pilih_project = new Pilih_Project_Java_GUI();
                         pilih_project.setVisible(true);
-
-                    } else {
-                        JOptionPane.showMessageDialog(SignIn.this, "Gagal masuk! Nama Pengguna / Email Surel atau " +
-                                "Password yang anda masukkan salah atau belum terdaftar !");
                     }
                 }
             }
@@ -200,9 +196,6 @@ public class SignIn extends JPanel {
                     saveLoginInfo(usernameOrEmail, password);
                 }
                 JOptionPane.showMessageDialog(this, "Berhasil masuk!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Gagal masuk! Username / Email atau Password yang anda masukkan " +
-                        "salah atau akun belum terdaftar !");
             }
         }
     }
@@ -219,21 +212,18 @@ public class SignIn extends JPanel {
                 ResultSet userCheckResultSet = userCheckStatement.executeQuery();
 
                 if (userCheckResultSet.next()) {
-                    // User exists, now check the password
                     String storedPassword = userCheckResultSet.getString("password");
                     if (password.equals(storedPassword)) {
-                        // Password is correct
                         userCheckResultSet.close();
                         userCheckStatement.close();
                         connection.close();
                         return true;
                     } else {
-                        // Password is incorrect
                         JOptionPane.showMessageDialog(this, "Password Salah!");
                     }
                 } else {
-                    // User does not exist
-                    JOptionPane.showMessageDialog(this, "Username Salah!");
+                    JOptionPane.showMessageDialog(this, "Gagal masuk! Username / Email atau Password yang anda masukkan " +
+                            "salah atau akun belum terdaftar !");
                 }
 
                 userCheckResultSet.close();

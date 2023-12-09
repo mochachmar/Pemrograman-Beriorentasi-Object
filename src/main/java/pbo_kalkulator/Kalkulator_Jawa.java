@@ -7,6 +7,7 @@ public class Kalkulator_Jawa extends javax.swing.JFrame {
 
     public Kalkulator_Jawa() {
         initComponents();
+        setLocationRelativeTo(this);
     }
 
     @SuppressWarnings("unchecked")
@@ -31,6 +32,7 @@ public class Kalkulator_Jawa extends javax.swing.JFrame {
         Bersihkan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("KALKULATOR JAWA");
