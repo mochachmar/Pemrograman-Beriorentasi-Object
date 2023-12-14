@@ -31,8 +31,7 @@ public class Kalkulator_Jawa extends javax.swing.JFrame {
         Mod = new javax.swing.JButton();
         Bersihkan = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("KALKULATOR JAWA");

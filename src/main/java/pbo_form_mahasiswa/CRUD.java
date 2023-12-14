@@ -3,8 +3,6 @@ package pbo_form_mahasiswa;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.sql.*;
 
 import pbo_pilih_project_java.Pilih_Project_Java_GUI;
@@ -17,6 +15,7 @@ public class CRUD extends javax.swing.JFrame {
         LoadDataMhs();
         Bersihkan();
         initializeRadioButtons();
+        jTable1.getSelectionModel().addListSelectionListener(e -> tableSelectionChanged());
     }
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -25,12 +24,6 @@ public class CRUD extends javax.swing.JFrame {
         txtDataMahasiswa = new javax.swing.JLabel();
         txtfieldnim = new javax.swing.JLabel();
         nim = new javax.swing.JTextField();
-        nim.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                isValidNIM();
-            }
-        });
         txtfieldnama = new javax.swing.JLabel();
         nama = new javax.swing.JTextField();
         txtfieldjurusan = new javax.swing.JLabel();
@@ -50,9 +43,10 @@ public class CRUD extends javax.swing.JFrame {
         ubah = new javax.swing.JButton();
         lihat_password = new javax.swing.JCheckBox();
         perempuan = new javax.swing.JRadioButton();
+        txtfieldcari = new javax.swing.JLabel();
+        cari = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtDataMahasiswa.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         txtDataMahasiswa.setText("DATA MAHASISWA");
@@ -194,56 +188,79 @@ public class CRUD extends javax.swing.JFrame {
             }
         });
 
+        txtfieldcari.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtfieldcari.setText("CARI                  :");
+
+        cari.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        cari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cariActionPerformed(evt);
+            }
+        });
+        cari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                cariKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(simpan, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                                .addComponent(hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(hapus_all, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                        .addGap(148, 148, 148))
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtfieldnim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtfieldpassword)
-                                .addComponent(txtfieldgender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(txtfieldjurusan))
-                        .addGap(28, 28, 28)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(pilih_jurusan, 0, 590, Short.MAX_VALUE)
-                                .addComponent(txtDataMahasiswa)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(password)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lihat_password))
-                                .addComponent(nim, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-                                .addComponent(nama))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(104, 104, 104)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(simpan, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                                        .addComponent(hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(Kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(hapus_all, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                                .addGap(148, 148, 148))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(laki_laki)
-                                .addGap(27, 27, 27)
-                                .addComponent(perempuan)
-                                .addGap(18, 18, 18)
-                                .addComponent(unknown)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 15, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtfieldcari)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtfieldnim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtfieldpassword)
+                                                .addComponent(txtfieldgender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(txtfieldjurusan))
+                                        .addGap(28, 28, 28)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(pilih_jurusan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(txtDataMahasiswa)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(lihat_password))
+                                                .addComponent(nim)
+                                                .addComponent(nama, javax.swing.GroupLayout.Alignment.TRAILING))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(laki_laki)
+                                                .addGap(27, 27, 27)
+                                                .addComponent(perempuan)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(unknown)))))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,14 +276,17 @@ public class CRUD extends javax.swing.JFrame {
                     .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lihat_password, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                        .addGap(1, 1, 1))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtfieldpassword)
-                        .addComponent(password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lihat_password, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtfieldpassword)
+                                .addGap(5, 5, 5)))
+                        .addGap(19, 19, 19))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtfieldgender)
                     .addComponent(laki_laki)
@@ -279,7 +299,7 @@ public class CRUD extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(pilih_jurusan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -293,8 +313,12 @@ public class CRUD extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtfieldcari)
+                    .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
 
@@ -340,16 +364,28 @@ public class CRUD extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Data Belum Lengkap", "Perhatian", JOptionPane.WARNING_MESSAGE);
         } else if (pilih_jurusan.getSelectedItem().toString().equals("Pilih Jurusan")) {
             JOptionPane.showMessageDialog(this, "Pilih jurusan yang valid", "Perhatian", JOptionPane.WARNING_MESSAGE);
-        } else if (pilih_jurusan.getSelectedItem().toString().equals("Pilih Jurusan")) {
-            JOptionPane.showMessageDialog(this, "Pilih jurusan yang valid", "Perhatian", JOptionPane.WARNING_MESSAGE);
         } else if (!isValidNIM(nim.getText())) {
             JOptionPane.showMessageDialog(this, "NIM harus berupa 6 digit angka", "Perhatian", JOptionPane.WARNING_MESSAGE);
         } else {
             try {
                 Connection c = ClassDB.getConnection();
-                String sql = "INSERT INTO MHS (nim, nama, jurusan, gender, password) VALUES (?, ?, ?, ?, ?)";
 
-                try (PreparedStatement pst = c.prepareStatement(sql)) {
+                // Check if NIM already exists in the database
+                String checkNIMQuery = "SELECT * FROM MHS WHERE nim = ?";
+                try (PreparedStatement checkNIMPst = c.prepareStatement(checkNIMQuery)) {
+                    checkNIMPst.setString(1, nim.getText());
+                    ResultSet resultSet = checkNIMPst.executeQuery();
+
+                    if (resultSet.next()) {
+                        // NIM already exists, show a message
+                        JOptionPane.showMessageDialog(this, "NIM sudah ada di database", "Perhatian", JOptionPane.WARNING_MESSAGE);
+                        return; // Exit the method without proceeding to insert
+                    }
+                }
+
+                // NIM does not exist, proceed with the insertion
+                String insertQuery = "INSERT INTO MHS (nim, nama, jurusan, gender, password) VALUES (?, ?, ?, ?, ?)";
+                try (PreparedStatement pst = c.prepareStatement(insertQuery)) {
                     pst.setString(1, nim.getText());
                     pst.setString(2, nama.getText());
                     pst.setString(3, pilih_jurusan.getSelectedItem().toString());
@@ -379,6 +415,7 @@ public class CRUD extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_simpanActionPerformed
+
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetActionPerformed
         Bersihkan();
@@ -466,6 +503,25 @@ public class CRUD extends javax.swing.JFrame {
         ubah_data();
     }//GEN-LAST:event_ubahActionPerformed
 
+    private void cariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cariActionPerformed
+
+    private void cariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cariKeyReleased
+        // TODO add your handling code here:
+        // Get the search keyword from the search field
+        String searchKeyword = cari.getText().trim();
+
+        // Check if the searchKeyword is empty
+        if (searchKeyword.isEmpty()) {
+            // If empty, reload all data
+            LoadDataMhs();
+        } else {
+            // If not empty, perform the search
+            searchAndLoadData(searchKeyword);
+        }
+    }//GEN-LAST:event_cariKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -473,7 +529,7 @@ public class CRUD extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -506,8 +562,8 @@ public class CRUD extends javax.swing.JFrame {
         jTable1.setModel(model);
         model.addColumn("NIM");
         model.addColumn("NAMA");
-        model.addColumn("PASSWORD");  // Add password column
-        model.addColumn("GENDER");  // Add gender column
+        model.addColumn("PASSWORD");
+        model.addColumn("GENDER");
         model.addColumn("JURUSAN");
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
@@ -523,8 +579,7 @@ public class CRUD extends javax.swing.JFrame {
                 o[0] = r.getString("nim");
                 o[1] = r.getString("nama");
                 String password = r.getString("password");
-                o[2] = (password != null && !password.isEmpty()) ? "****" : "";
-
+                o[2] = (password != null && !password.isEmpty()) ? "[Password Protected]" : "";
                 o[3] = r.getString("gender");
                 o[4] = r.getString("jurusan");
                 model.addRow(o);
@@ -542,17 +597,59 @@ public class CRUD extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(rootPane, e.toString());
         }
+
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
+    private void searchAndLoadData(String searchKeyword) {
+        try {
+            Connection c = pbo_form_mahasiswa.ClassDB.getConnection();
+            String sql = "SELECT * FROM MHS WHERE nim LIKE ? OR nama LIKE ? OR jurusan LIKE ? OR gender LIKE ? OR password LIKE ?";
+            try (PreparedStatement pst = c.prepareStatement(sql)) {
+                // Use "%" to match any characters before and after the search keyword
+                pst.setString(1, "%" + searchKeyword + "%");
+                pst.setString(2, "%" + searchKeyword + "%");
+                pst.setString(3, "%" + searchKeyword + "%");
+                pst.setString(4, "%" + searchKeyword + "%");
+                pst.setString(5, "%" + searchKeyword + "%");
 
+                ResultSet r = pst.executeQuery();
+
+                model.getDataVector().removeAllElements();
+                model.fireTableDataChanged();
+
+                while (r.next()) {
+                    Object[] o = new Object[5];
+                    o[0] = r.getString("nim");
+                    o[1] = r.getString("nama");
+                    String password = r.getString("password");
+                    o[2] = (password != null && !password.isEmpty()) ? "****" : "";
+                    o[3] = r.getString("gender");
+                    o[4] = r.getString("jurusan");
+                    model.addRow(o);
+                }
+
+                for (int i = 0; i < model.getColumnCount(); i++) {
+                    TableColumn column = jTable1.getColumnModel().getColumn(i);
+                    if (i == 0) column.setPreferredWidth(80);
+                    if (i == 1) column.setPreferredWidth(200);
+                    if (i == 2) column.setPreferredWidth(150);
+                }
+
+                r.close();
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(rootPane, e.toString());
+        }
+    }
 
     public void Bersihkan() {
         nim.setText("");
         nama.setText("");
         pilih_jurusan.setSelectedIndex(0);
         password.setText("");
-        lihat_password.setSelected(false); // Unselect the "Show Password" checkbox
-        password.setEchoChar('\u2022'); // Reset password visibility
+        lihat_password.setSelected(false);
+        password.setEchoChar('\u2022');
 
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(laki_laki);
@@ -578,40 +675,76 @@ public class CRUD extends javax.swing.JFrame {
     }
 
     private void ubah_data() {
-        int selectedRowIndex = jTable1.getSelectedRow();
+        if (nama.getText().equals("") || nim.getText().equals("") || pilih_jurusan.getSelectedIndex() == 0 || password.getPassword().length == 0) {
+            JOptionPane.showMessageDialog(this, "Data Belum Lengkap", "Perhatian", JOptionPane.WARNING_MESSAGE);
+        } else if (pilih_jurusan.getSelectedItem().toString().equals("Pilih Jurusan")) {
+            JOptionPane.showMessageDialog(this, "Pilih jurusan yang valid", "Perhatian", JOptionPane.WARNING_MESSAGE);
+        } else if (!isValidNIM(nim.getText())) {
+            JOptionPane.showMessageDialog(this, "NIM harus berupa 6 digit angka", "Perhatian", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int selectedRowIndex = jTable1.getSelectedRow();
 
-        if (selectedRowIndex == -1) {
-            JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "Perhatian", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+            if (selectedRowIndex == -1) {
+                JOptionPane.showMessageDialog(this, "Pilih data yang akan diubah", "Perhatian", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        String selectedNIM = jTable1.getValueAt(selectedRowIndex, 0).toString();
+            String selectedNIM = jTable1.getValueAt(selectedRowIndex, 0).toString();
 
-        String newNIM = nim.getText();
-        String newNama = nama.getText();
-        String newJurusan = pilih_jurusan.getSelectedItem().toString();
-        String newGender = getSelectedGender(); // Assuming you have a method to get the selected gender
-        String newPassword = new String(password.getPassword()); // Assuming you have a JPasswordField named passwordField
+            String newNIM = nim.getText();
+            String newNama = nama.getText();
+            String newJurusan = pilih_jurusan.getSelectedItem().toString();
+            String newGender = getSelectedGender();
+            String newPassword = new String(password.getPassword());
 
-        if (newNIM.equals("") || newNama.equals("") || newJurusan.equals("") || newJurusan.equals("Pilih Jurusan") || newGender.equals("") || newPassword.equals("")) {
-            JOptionPane.showMessageDialog(this, "Data belum lengkap", "Perhatian", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
+            if (newNIM.equals("") || newNama.equals("") || newJurusan.equals("") || newJurusan.equals("Pilih Jurusan") || newGender.equals("") || newPassword.equals("")) {
+                JOptionPane.showMessageDialog(this, "Data belum lengkap", "Perhatian", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
 
-        try {
-            Connection c = ClassDB.getConnection();
-            Statement st = c.createStatement();
+            try {
+                Connection c = ClassDB.getConnection();
 
-            String sql = "UPDATE MHS SET nim='" + newNIM + "', nama='" + newNama + "', jurusan='" + newJurusan + "', gender='" + newGender + "', password='" + newPassword + "' WHERE nim='" + selectedNIM + "'";
-            st.executeUpdate(sql);
+                // Check if the new NIM already exists in the database
+                String checkNIMQuery = "SELECT * FROM MHS WHERE nim = ? AND nim != ?";
+                try (PreparedStatement checkNIMPst = c.prepareStatement(checkNIMQuery)) {
+                    checkNIMPst.setString(1, newNIM);
+                    checkNIMPst.setString(2, selectedNIM);
 
-            JOptionPane.showMessageDialog(this, "Data berhasil diubah");
-            LoadDataMhs();
-            Bersihkan();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+                    ResultSet resultSet = checkNIMPst.executeQuery();
+
+                    if (resultSet.next()) {
+                        // NIM already exists, show a warning message
+                        JOptionPane.showMessageDialog(this, "NIM sudah ada di database", "Perhatian", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                }
+
+                // NIM does not exist, proceed with the update
+                String updateQuery = "UPDATE MHS SET nim=?, nama=?, jurusan=?, gender=?, password=? WHERE nim=?";
+                try (PreparedStatement pst = c.prepareStatement(updateQuery)) {
+                    pst.setString(1, newNIM);
+                    pst.setString(2, newNama);
+                    pst.setString(3, newJurusan);
+                    pst.setString(4, newGender);
+                    pst.setString(5, newPassword);
+                    pst.setString(6, selectedNIM);
+
+                    int rowsAffected = pst.executeUpdate();
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(this, "Data berhasil diubah");
+                        LoadDataMhs();
+                        Bersihkan();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Gagal mengubah data", "Perhatian", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
+
 
     private String getSelectedGender() {
         if (laki_laki.isSelected()) {
@@ -621,7 +754,7 @@ public class CRUD extends javax.swing.JFrame {
         } else if (unknown.isSelected()) {
             return "Tidak Diketahui";
         } else {
-            return ""; // Handle the case when no radio button is selected
+            return "";
         }
     }
 
@@ -638,8 +771,62 @@ public class CRUD extends javax.swing.JFrame {
         return nim.getText().length() == 6;
     }
 
+    private void tableSelectionChanged() {
+        int selectedRowIndex = jTable1.getSelectedRow();
+
+        if (selectedRowIndex != -1) {
+            String selectedNIM = jTable1.getValueAt(selectedRowIndex, 0).toString();
+            String selectedNama = jTable1.getValueAt(selectedRowIndex, 1).toString();
+
+            // Fetch the password from the database based on the selected NIM
+            String selectedPassword = getPasswordFromDatabase(selectedNIM);
+
+            // Set the values to the corresponding fields
+            nim.setText(selectedNIM);
+            nama.setText(selectedNama);
+            password.setText(selectedPassword);
+
+            // Set the selected gender
+            String selectedGender = jTable1.getValueAt(selectedRowIndex, 3).toString();
+            if (selectedGender.equals("Laki - Laki")) {
+                laki_laki.setSelected(true);
+            } else if (selectedGender.equals("Perempuan")) {
+                perempuan.setSelected(true);
+            } else {
+                unknown.setSelected(true);
+            }
+
+            // Set the selected jurusan
+            String selectedJurusan = jTable1.getValueAt(selectedRowIndex, 4).toString();
+            pilih_jurusan.setSelectedItem(selectedJurusan);
+        }
+    }
+
+    private String getPasswordFromDatabase(String nim) {
+        String password = "";
+
+        try {
+            Connection c = ClassDB.getConnection();
+            String sql = "SELECT password FROM MHS WHERE nim = ?";
+            try (PreparedStatement pst = c.prepareStatement(sql)) {
+                pst.setString(1, nim);
+
+                ResultSet resultSet = pst.executeQuery();
+                if (resultSet.next()) {
+                    password = resultSet.getString("password");
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return password;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Kembali;
+    private javax.swing.JTextField cari;
     private javax.swing.JButton hapus;
     private javax.swing.JButton hapus_all;
     private javax.swing.JScrollPane jScrollPane1;
@@ -654,6 +841,7 @@ public class CRUD extends javax.swing.JFrame {
     private javax.swing.JButton reset;
     private javax.swing.JButton simpan;
     private javax.swing.JLabel txtDataMahasiswa;
+    private javax.swing.JLabel txtfieldcari;
     private javax.swing.JLabel txtfieldgender;
     private javax.swing.JLabel txtfieldjurusan;
     private javax.swing.JLabel txtfieldnama;
