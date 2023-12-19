@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import java.util.prefs.Preferences;
-import pbo_pilih_project_java.Pilih_Project_Java_GUI;
+import pbo_login.login;
 
 public class SignIn extends JPanel {
     private JTextField txtUsername;
@@ -139,8 +139,8 @@ public class SignIn extends JPanel {
                             clearSavedLoginInfo();
                         }
                         JOptionPane.showMessageDialog(SignIn.this, "Berhasil masuk ! Anda akan segera dialihkan !");
-                        Pilih_Project_Java_GUI pilih_project = new Pilih_Project_Java_GUI();
-                        pilih_project.setVisible(true);
+                        login masuk = new login();
+                        masuk.setVisible(true);
                     }
                 }
             }

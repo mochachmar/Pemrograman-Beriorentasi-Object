@@ -1,14 +1,20 @@
 package pbo_form_mahasiswa;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import java.awt.*;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 import pbo_pilih_project_java.Pilih_Project_Java_GUI;
 
+import static java.awt.Image.SCALE_DEFAULT;
+
 public class CRUD extends javax.swing.JFrame {
     private DefaultTableModel model;
+    String path_foto;
     public CRUD() {
         initComponents();
         setLocationRelativeTo(this);
@@ -45,11 +51,16 @@ public class CRUD extends javax.swing.JFrame {
         perempuan = new javax.swing.JRadioButton();
         txtfieldcari = new javax.swing.JLabel();
         cari = new javax.swing.JTextField();
+        garis_pembatas = new javax.swing.JLabel();
+        foto = new javax.swing.JLabel();
+        pilih_foto = new javax.swing.JButton();
+        txtfieldtgllahir = new javax.swing.JLabel();
+        tgl_lahir = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         txtDataMahasiswa.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        txtDataMahasiswa.setText("DATA MAHASISWA");
+        txtDataMahasiswa.setText("DATA MAHASISWA CRUD PBO");
 
         txtfieldnim.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         txtfieldnim.setText("NIM                    :");
@@ -203,117 +214,158 @@ public class CRUD extends javax.swing.JFrame {
             }
         });
 
+        garis_pembatas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        garis_pembatas.setText("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+
+        foto.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        foto.setText("FOTO");
+        foto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        pilih_foto.setText("...");
+        pilih_foto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pilih_fotoActionPerformed(evt);
+            }
+        });
+
+        txtfieldtgllahir.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        txtfieldtgllahir.setText("TANGGAL LAHIR   :");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(32, 32, 32)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(104, 104, 104)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(simpan, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                                        .addComponent(hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(Kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(hapus_all, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
-                                .addGap(148, 148, 148))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(txtfieldcari)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, 590, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtfieldtgllahir)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtfieldcari)
+                                .addGap(64, 64, 64)
+                                .addComponent(cari))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtfieldnim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtfieldpassword)
+                                        .addComponent(txtfieldgender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(txtfieldjurusan))
+                                .addGap(28, 28, 28)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(txtfieldnim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtfieldpassword)
-                                                .addComponent(txtfieldgender, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addComponent(txtfieldjurusan))
-                                        .addGap(28, 28, 28)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(pilih_jurusan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(txtDataMahasiswa)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                    .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(lihat_password))
-                                                .addComponent(nim)
-                                                .addComponent(nama, javax.swing.GroupLayout.Alignment.TRAILING))
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(laki_laki)
                                                 .addGap(27, 27, 27)
                                                 .addComponent(perempuan)
                                                 .addGap(18, 18, 18)
-                                                .addComponent(unknown)))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
+                                                .addComponent(unknown))
+                                            .addComponent(tgl_lahir, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(txtDataMahasiswa)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(pilih_jurusan, javax.swing.GroupLayout.Alignment.LEADING, 0, 800, Short.MAX_VALUE)
+                                                .addComponent(nama, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(nim, javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(password, javax.swing.GroupLayout.Alignment.LEADING)))
+                                        .addGap(27, 27, 27)
+                                        .addComponent(lihat_password)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(foto, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(pilih_foto)
+                                .addGap(16, 16, 16))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 5, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(360, 360, 360)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(simpan, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                                        .addComponent(hapus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(ubah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(187, 187, 187)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(reset, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(hapus_all, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                                        .addComponent(Kembali, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(26, 26, 26)
+                                    .addComponent(garis_pembatas)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1590, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(22, 22, 22)
                 .addComponent(txtDataMahasiswa)
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfieldnim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(lihat_password, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txtfieldpassword)
-                                .addGap(5, 5, 5)))
-                        .addGap(19, 19, 19))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtfieldnim, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(nama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtfieldnama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGap(20, 20, 20)
+                            .addComponent(txtfieldpassword)
+                            .addGap(126, 126, 126))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(18, 18, 18))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(pilih_foto)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtfieldgender)
-                    .addComponent(laki_laki)
-                    .addComponent(unknown)
-                    .addComponent(perempuan))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(125, 125, 125)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lihat_password, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(txtfieldjurusan))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(pilih_jurusan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hapus_all, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtfieldgender)
+                            .addComponent(laki_laki)
+                            .addComponent(unknown)
+                            .addComponent(perempuan))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(txtfieldjurusan))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(pilih_jurusan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtfieldtgllahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tgl_lahir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(reset, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(simpan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(hapus, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(hapus_all, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Kembali, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ubah, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(6, 6, 6)
+                .addComponent(garis_pembatas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtfieldcari)
                     .addComponent(cari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -399,6 +451,13 @@ public class CRUD extends javax.swing.JFrame {
                     }
 
                     pst.setString(5, new String(password.getPassword()));
+
+                    // tanggal dan foto
+//                    SimpleDateFormat date;
+//                    date = new SimpleDateFormat("yyyy-MM-dd");
+//                    String sql;
+//                    sql = (date.format(tgl_lahir.getDate()));
+//                    path_foto.replace("\\","/");
 
                     int rowsAffected = pst.executeUpdate();
                     if (rowsAffected > 0) {
@@ -522,6 +581,20 @@ public class CRUD extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cariKeyReleased
 
+    private void pilih_fotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pilih_fotoActionPerformed
+        // TODO add your handling code here:
+        JFileChooser jfc = new JFileChooser();
+        jfc.setDialogTitle("PILIH FOTO MAHASISWA");
+        jfc.setFileFilter(new FileNameExtensionFilter("Images", "jpg", "jpeg", "png"));
+        if (jfc.showOpenDialog(this) == jfc.APPROVE_OPTION) {
+            path_foto = jfc.getSelectedFile().toString();
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(path_foto).getImage().getScaledInstance(166,229,
+                    SCALE_DEFAULT));
+            foto.setText(null);
+            foto.setIcon(imageIcon);
+        }
+    }//GEN-LAST:event_pilih_fotoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -565,6 +638,8 @@ public class CRUD extends javax.swing.JFrame {
         model.addColumn("PASSWORD");
         model.addColumn("GENDER");
         model.addColumn("JURUSAN");
+        model.addColumn("TGL LAHIR");
+        model.addColumn("LOKASI FOTO");
         model.getDataVector().removeAllElements();
         model.fireTableDataChanged();
 
@@ -575,13 +650,15 @@ public class CRUD extends javax.swing.JFrame {
             ResultSet r = s.executeQuery(sql);
 
             while (r.next()) {
-                Object[] o = new Object[5];
+                Object[] o = new Object[7];
                 o[0] = r.getString("nim");
                 o[1] = r.getString("nama");
                 String password = r.getString("password");
                 o[2] = (password != null && !password.isEmpty()) ? "[Password Protected]" : "";
                 o[3] = r.getString("gender");
                 o[4] = r.getString("jurusan");
+                o[5] = r.getString("tanggal");
+                o[6] = r.getString("lokasi_foto");
                 model.addRow(o);
             }
 
@@ -590,6 +667,8 @@ public class CRUD extends javax.swing.JFrame {
                 if (i == 0) column.setPreferredWidth(80);
                 if (i == 1) column.setPreferredWidth(200);
                 if (i == 2) column.setPreferredWidth(150);
+                if (i == 3) column.setPreferredWidth(100);
+                if (i == 4) column.setPreferredWidth(150);
             }
 
             r.close();
@@ -619,13 +698,15 @@ public class CRUD extends javax.swing.JFrame {
                 model.fireTableDataChanged();
 
                 while (r.next()) {
-                    Object[] o = new Object[5];
+                    Object[] o = new Object[7];
                     o[0] = r.getString("nim");
                     o[1] = r.getString("nama");
                     String password = r.getString("password");
                     o[2] = (password != null && !password.isEmpty()) ? "****" : "";
                     o[3] = r.getString("gender");
                     o[4] = r.getString("jurusan");
+                    o[5] = r.getString("tanggal");
+                    o[6] = r.getString("lokasi_foto");
                     model.addRow(o);
                 }
 
@@ -634,6 +715,8 @@ public class CRUD extends javax.swing.JFrame {
                     if (i == 0) column.setPreferredWidth(80);
                     if (i == 1) column.setPreferredWidth(200);
                     if (i == 2) column.setPreferredWidth(150);
+                    if (i == 3) column.setPreferredWidth(100);
+                    if (i == 4) column.setPreferredWidth(150);
                 }
 
                 r.close();
@@ -656,6 +739,9 @@ public class CRUD extends javax.swing.JFrame {
         genderGroup.add(perempuan);
         genderGroup.add(unknown);
         genderGroup.clearSelection();
+
+        foto.setIcon(null);
+        foto.setText("FOTO");
     }
 
 
@@ -767,10 +853,6 @@ public class CRUD extends javax.swing.JFrame {
         }
     }
 
-    private boolean isValidNIM() {
-        return nim.getText().length() == 6;
-    }
-
     private void tableSelectionChanged() {
         int selectedRowIndex = jTable1.getSelectedRow();
 
@@ -799,6 +881,13 @@ public class CRUD extends javax.swing.JFrame {
             // Set the selected jurusan
             String selectedJurusan = jTable1.getValueAt(selectedRowIndex, 4).toString();
             pilih_jurusan.setSelectedItem(selectedJurusan);
+
+            // foto
+//            String foto = (String) model.getValueAt(i, 4);
+//            ImageIcon imageIcon = new ImageIcon(new ImageIcon(foto).getImage().getScaledInstance(166,
+//                    229,SCALE_DEFAULT));
+//            foto.setText(null);
+//            foto.setIcon(imageicon);
         }
     }
 
@@ -827,6 +916,8 @@ public class CRUD extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Kembali;
     private javax.swing.JTextField cari;
+    private javax.swing.JLabel foto;
+    private javax.swing.JLabel garis_pembatas;
     private javax.swing.JButton hapus;
     private javax.swing.JButton hapus_all;
     private javax.swing.JScrollPane jScrollPane1;
@@ -837,9 +928,11 @@ public class CRUD extends javax.swing.JFrame {
     private javax.swing.JTextField nim;
     private javax.swing.JPasswordField password;
     private javax.swing.JRadioButton perempuan;
+    private javax.swing.JButton pilih_foto;
     private javax.swing.JComboBox pilih_jurusan;
     private javax.swing.JButton reset;
     private javax.swing.JButton simpan;
+    private com.toedter.calendar.JDateChooser tgl_lahir;
     private javax.swing.JLabel txtDataMahasiswa;
     private javax.swing.JLabel txtfieldcari;
     private javax.swing.JLabel txtfieldgender;
@@ -847,6 +940,7 @@ public class CRUD extends javax.swing.JFrame {
     private javax.swing.JLabel txtfieldnama;
     private javax.swing.JLabel txtfieldnim;
     private javax.swing.JLabel txtfieldpassword;
+    private javax.swing.JLabel txtfieldtgllahir;
     private javax.swing.JButton ubah;
     private javax.swing.JRadioButton unknown;
     // End of variables declaration//GEN-END:variables
