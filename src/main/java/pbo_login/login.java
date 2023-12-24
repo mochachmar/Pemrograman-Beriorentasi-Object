@@ -28,8 +28,9 @@ public class login extends javax.swing.JFrame {
         username = new javax.swing.JTextField();
         password = new javax.swing.JPasswordField();
         pilih_status = new javax.swing.JComboBox();
+        lihat_password = new javax.swing.JCheckBox();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
         txtfieldformlogin.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
@@ -82,14 +83,22 @@ public class login extends javax.swing.JFrame {
             }
         });
 
+        lihat_password.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lihat_password.setText("Show Password");
+        lihat_password.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lihat_passwordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(144, 144, 144)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(kembali)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(115, 115, 115)
                 .addComponent(login)
                 .addGap(116, 116, 116))
             .addGroup(layout.createSequentialGroup()
@@ -100,14 +109,19 @@ public class login extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtusername)
-                            .addComponent(txtfieldpassword)
-                            .addComponent(txtfieldstatus))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(pilih_status, 0, 500, Short.MAX_VALUE)
-                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                            .addComponent(username))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtfieldstatus)
+                                .addGap(18, 18, 18)
+                                .addComponent(pilih_status, 0, 500, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtusername)
+                                    .addComponent(txtfieldpassword))
+                                .addGap(19, 19, 19)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lihat_password)
+                                    .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                                    .addComponent(username))))))
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -123,15 +137,17 @@ public class login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtfieldpassword)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lihat_password)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtfieldstatus)
                     .addComponent(pilih_status, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(36, 36, 36)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(kembali)
                     .addComponent(login))
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
@@ -197,6 +213,15 @@ public class login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_loginActionPerformed
 
+    private void lihat_passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lihat_passwordActionPerformed
+        // TODO add your handling code here:
+        if (lihat_password.isSelected()) {
+            password.setEchoChar((char) 0);
+        } else {
+            password.setEchoChar('\u2022');
+        }
+    }//GEN-LAST:event_lihat_passwordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -234,6 +259,7 @@ public class login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton kembali;
+    private javax.swing.JCheckBox lihat_password;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField password;
     private javax.swing.JComboBox pilih_status;
