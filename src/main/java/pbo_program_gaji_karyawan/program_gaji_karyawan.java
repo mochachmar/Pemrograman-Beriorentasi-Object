@@ -1,11 +1,11 @@
 package pbo_program_gaji_karyawan;
 
+import pbo_form_mahasiswa.ClassDB;
 import pbo_pilih_project_java.Pilih_Project_Java_GUI;
+
 import javax.swing.*;
 import java.text.NumberFormat;
 import java.util.Locale;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 
 public class program_gaji_karyawan extends javax.swing.JFrame {
@@ -18,17 +18,12 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
     
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         label_nik = new javax.swing.JLabel();
         txtfieldnik = new javax.swing.JTextField();
-        txtfieldnik.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                validateNIK();
-            }
-        });
         label_nama = new javax.swing.JLabel();
         txtfieldnama = new javax.swing.JTextField();
         label_jumlah_anak = new javax.swing.JLabel();
@@ -54,7 +49,12 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txt_area = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 0));
 
@@ -277,7 +277,7 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtfield_gaji_bersih, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE)
                                     .addComponent(txtfield_total_gaji))))
-                        .addGap(0, 502, Short.MAX_VALUE)))
+                        .addGap(0, 497, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -455,7 +455,7 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
 
     }//GEN-LAST:event_hitungActionPerformed
 
-    private void tampilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tampilActionPerformed
+    private void tampilActionPerformed(java.awt.event.ActionEvent evt) {                                       
         if (isFormComplete()) {
             if (isValidNIK() && isValidName()) {
                 String result = "NIK: " + txtfieldnik.getText() +
@@ -527,6 +527,12 @@ public class program_gaji_karyawan extends javax.swing.JFrame {
         pilih_project.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_kembaliActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        ClassDB.getConnection();
+        ImageIcon icon = new ImageIcon("src/main/java/Laporan/logo.undipa.jpg");
+        setIconImage(icon.getImage());
+    }//GEN-LAST:event_formWindowActivated
 
     private void hitungTotalGaji() {
         totalGaji = gapok + tunjangan + tunjanganAnak;

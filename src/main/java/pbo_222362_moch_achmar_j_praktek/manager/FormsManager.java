@@ -2,6 +2,7 @@ package pbo_222362_moch_achmar_j_praktek.manager;
 
 import com.formdev.flatlaf.extras.FlatAnimatedLafChange;
 import pbo_222362_moch_achmar_j_praktek.main.Application;
+
 import javax.swing.*;
 import java.awt.*;
 

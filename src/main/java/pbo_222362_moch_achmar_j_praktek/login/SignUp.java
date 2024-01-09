@@ -5,18 +5,18 @@ import net.miginfocom.swing.MigLayout;
 import pbo_222362_moch_achmar_j_praktek.DatabaseConnection.DatabaseConnection;
 import pbo_222362_moch_achmar_j_praktek.component.PasswordStrengthStatus;
 import pbo_222362_moch_achmar_j_praktek.manager.FormsManager;
+
 import javax.swing.*;
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Arrays;
 
 public class SignUp extends JPanel {
     private JTextField activeTextField;

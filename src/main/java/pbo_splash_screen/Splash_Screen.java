@@ -1,9 +1,11 @@
 package pbo_splash_screen;
 
-import pbo_222362_moch_achmar_j_praktek.main.Application;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import pbo_222362_moch_achmar_j_praktek.main.Application;
+import pbo_form_mahasiswa.ClassDB;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -24,6 +26,11 @@ public class Splash_Screen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         Splash_Screen.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         Splash_Screen.setText("Selamat Datang di Welcome");
@@ -78,6 +85,12 @@ public class Splash_Screen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        ClassDB.getConnection();
+        ImageIcon icon = new ImageIcon("src/main/java/Laporan/logo.undipa.jpg");
+        setIconImage(icon.getImage());
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

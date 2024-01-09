@@ -6,6 +6,7 @@ import com.formdev.flatlaf.ui.FlatUIUtils;
 import com.formdev.flatlaf.util.UIScale;
 import net.miginfocom.swing.MigLayout;
 import pbo_222362_moch_achmar_j_praktek.util.MethodUtil;
+
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

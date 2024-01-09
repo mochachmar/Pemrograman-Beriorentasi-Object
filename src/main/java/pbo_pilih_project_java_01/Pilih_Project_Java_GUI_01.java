@@ -1,9 +1,11 @@
 package pbo_pilih_project_java_01;
 
-import pbo_login.login;
 import pbo_convert_suhu.Convert_Suhu;
+import pbo_form_mahasiswa.ClassDB;
 import pbo_kalkulator.Kalkulator_Jawa;
+import pbo_login.login;
 import pbo_program_gaji_karyawan.program_gaji_karyawan;
+
 import javax.swing.*;
 
 public class Pilih_Project_Java_GUI_01 extends javax.swing.JFrame {
@@ -41,6 +43,11 @@ public class Pilih_Project_Java_GUI_01 extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 500));
 
@@ -235,6 +242,12 @@ public class Pilih_Project_Java_GUI_01 extends javax.swing.JFrame {
         gajiKaryawan.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_gaji_karyawan_01ActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        ClassDB.getConnection();
+        ImageIcon icon = new ImageIcon("src/main/java/Laporan/logo.undipa.jpg");
+        setIconImage(icon.getImage());
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments

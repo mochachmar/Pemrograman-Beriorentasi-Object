@@ -1,7 +1,8 @@
 package pbo_convert_suhu;
+
 import pbo_pilih_project_java.Pilih_Project_Java_GUI;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class Convert_Suhu extends javax.swing.JFrame {
     public Convert_Suhu() {

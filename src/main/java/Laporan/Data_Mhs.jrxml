@@ -1,29 +1,162 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-    <background>
-        <band/>
-    </background>
-    <title>
-        <band height="79"/>
-    </title>
-    <pageHeader>
-        <band height="35"/>
-    </pageHeader>
-    <columnHeader>
-        <band height="61"/>
-    </columnHeader>
-    <detail>
-        <band height="125"/>
-    </detail>
-    <columnFooter>
-        <band height="45"/>
-    </columnFooter>
-    <pageFooter>
-        <band height="54"/>
-    </pageFooter>
-    <summary>
-        <band height="42"/>
-    </summary>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="1296" pageHeight="1080" columnWidth="1256" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d02afb8e-cc55-4cb0-91c3-87d0ddc8bc6a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select * from mhs]]>
+	</queryString>
+	<field name="nim" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jurusan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="password" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_lahir" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="foto_path" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="-2" width="1256" height="81" uuid="7cc0d07e-c20c-4669-b42f-48759360cea2"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="24"/>
+				</textElement>
+				<text><![CDATA[DATA MAHASISWA]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="107" height="32" uuid="5f530180-be6c-4472-bc56-f2632e8e752e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NIM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="174" y="0" width="110" height="32" uuid="fa9ec090-165c-412a-ae34-11f988b5a4a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="337" y="0" width="116" height="32" uuid="fc8a6f34-1d99-4c71-89f2-ecbd4b71a549"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JURUSAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="0" width="129" height="32" uuid="1203bab0-10ef-4929-8a99-3328700768f8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[JENIS KELAMIN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="706" y="0" width="115" height="32" uuid="927004b1-eccc-4cb4-b1df-3ff1712fbfcc"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PASSWORD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="901" y="0" width="136" height="32" uuid="c42495f2-3e44-4658-b4ac-ccf928bfb5f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TANGGAL LAHIR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1105" y="0" width="151" height="32" uuid="4d9c13e6-6b78-4b42-8541-b27254566470"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FOTO MAHASISWA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="107" height="28" uuid="578576a6-4a56-4e3a-a82a-4c5bf1e3525e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nim}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="174" y="0" width="110" height="28" uuid="0944ab3c-4002-40b7-bff0-6bc253b4e1c5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="337" y="0" width="116" height="28" uuid="b8baa40e-5e6d-484b-9944-a3af8d07327c"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jurusan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="129" height="28" uuid="61059548-5ae6-4a0b-858f-da4da3020cfb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="706" y="0" width="115" height="28" uuid="196f8784-6c16-4fc0-b888-bdf9e246d626"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{password}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="901" y="0" width="136" height="28" uuid="1a1c0b2b-0637-471f-b4db-3c79b3f61d72"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tanggal_lahir}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1105" y="0" width="151" height="28" uuid="faf7405c-de93-4510-a3df-d90392130cea"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{foto_path}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
 </jasperReport>

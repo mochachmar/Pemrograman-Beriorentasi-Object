@@ -2,18 +2,18 @@ package pbo_222362_moch_achmar_j_praktek.login;
 
 import com.formdev.flatlaf.FlatClientProperties;
 import net.miginfocom.swing.MigLayout;
+import pbo_222362_moch_achmar_j_praktek.DatabaseConnection.DatabaseConnection;
 import pbo_222362_moch_achmar_j_praktek.manager.FormsManager;
+import pbo_login.login;
+
 import javax.swing.*;
 import java.awt.*;
-import pbo_222362_moch_achmar_j_praktek.DatabaseConnection.DatabaseConnection;
 import java.awt.event.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 import java.util.prefs.Preferences;
-import pbo_login.login;
 
 public class SignIn extends JPanel {
     private JTextField txtUsername;

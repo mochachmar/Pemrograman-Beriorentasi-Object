@@ -1,6 +1,8 @@
 package pbo_form_mahasiswa;
 
 import com.formdev.flatlaf.json.ParseException;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 import pbo_pilih_project_java.Pilih_Project_Java_GUI;
 
 import javax.swing.*;
@@ -10,12 +12,6 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.sql.*;
 import java.text.SimpleDateFormat;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.view.JasperViewer;
 
 public class CRUD extends javax.swing.JFrame {
 
@@ -65,6 +61,11 @@ public class CRUD extends javax.swing.JFrame {
         print = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         txtDataMahasiswa.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         txtDataMahasiswa.setText("DATA MAHASISWA CRUD PBO");
@@ -101,6 +102,7 @@ public class CRUD extends javax.swing.JFrame {
         });
 
         simpan.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        simpan.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\103529_download_icon.png")); // NOI18N
         simpan.setText("SIMPAN");
         simpan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +111,7 @@ public class CRUD extends javax.swing.JFrame {
         });
 
         reset.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        reset.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\9855519_reset_reload_sync_update_icon.png")); // NOI18N
         reset.setText("RESET");
         reset.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,6 +120,7 @@ public class CRUD extends javax.swing.JFrame {
         });
 
         hapus.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        hapus.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\3669361_delete_ic_icon.png")); // NOI18N
         hapus.setText("HAPUS");
         hapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +129,7 @@ public class CRUD extends javax.swing.JFrame {
         });
 
         hapus_all.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        hapus_all.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\5875985_action_all_bin_delete_garbage_icon.png")); // NOI18N
         hapus_all.setText("HAPUS SEMUA");
         hapus_all.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +138,7 @@ public class CRUD extends javax.swing.JFrame {
         });
 
         Kembali.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        Kembali.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\4829864_arrow_back_left_icon.png")); // NOI18N
         Kembali.setText("KEMBALI");
         Kembali.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,6 +189,7 @@ public class CRUD extends javax.swing.JFrame {
         });
 
         ubah.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        ubah.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\9055423_bxs_edit_icon.png")); // NOI18N
         ubah.setText("UBAH");
         ubah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,6 +246,7 @@ public class CRUD extends javax.swing.JFrame {
         txtfieldtgllahir.setText("TANGGAL LAHIR   :");
 
         print.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        print.setIcon(new javax.swing.ImageIcon("C:\\Users\\USER\\Downloads\\Pemrograman Beriorentasi Object\\Source code\\Latihan-Prak-PBO-Java\\PBO_222362_Moch_Achmar_J_Praktek\\src\\main\\java\\Tampilan\\3669284_ic_print_icon.png")); // NOI18N
         print.setText("CETAK");
         print.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -592,6 +600,12 @@ public class CRUD extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, e);
         }
     }//GEN-LAST:event_printActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        ClassDB.getConnection();
+        ImageIcon icon = new ImageIcon("src/main/java/Laporan/logo.undipa.jpg");
+        setIconImage(icon.getImage());
+    }//GEN-LAST:event_formWindowActivated
 
     private void pilih_fotoActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser jfc = new JFileChooser();
