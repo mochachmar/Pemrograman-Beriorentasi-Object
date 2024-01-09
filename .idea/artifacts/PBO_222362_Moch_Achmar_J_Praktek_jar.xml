@@ -1,0 +1,31 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PBO_222362_Moch_Achmar_J_Praktek:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PBO_222362_Moch_Achmar_J_Praktek_jar</output-path>
+    <root id="archive" name="PBO_222362_Moch_Achmar_J_Praktek.jar">
+      <element id="module-output" name="PBO_222362_Moch_Achmar_J_Praktek" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/miglayout/miglayout-core/11.1/miglayout-core-11.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/commons-collections4-4.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jasperreports-6.21.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jfreechart-1.0.19.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/stax2-api-4.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/commons-logging-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jackson-annotations-2.15.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jackson-core-2.15.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jackson-dataformat-xml-2.15.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/woodstox-core-6.5.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf-extras/3.2.1/flatlaf-extras-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/unknown/binary/jcalendar-tz-1.3.3-4/SNAPSHOT/jcalendar-tz-1.3.3-4-SNAPSHOT.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jackson-databind-2.15.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/miglayout/miglayout-swing/11.1/miglayout-swing-11.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/ecj-3.21.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf/3.2.1/flatlaf-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/formdev/flatlaf-fonts-roboto/2.137/flatlaf-fonts-roboto-2.137.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/github/weisj/jsvg/1.1.0/jsvg-1.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/commons-beanutils-1.9.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/commons-digester-2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/commons-collections-3.2.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/jcommon-1.0.23.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../jar_files/openpdf-1.3.30.jaspersoft.3.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
